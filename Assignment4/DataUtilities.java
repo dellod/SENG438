@@ -67,8 +67,7 @@ public abstract class DataUtilities {
      * @return The sum of the values in the specified column.
      */
     public static double calculateColumnTotal(Values2D data, int column) {
-        if(data == null)
-        {
+        if(data == null) {
         	throw new InvalidParameterException();
         }
     	double total = 0.0;
@@ -187,6 +186,15 @@ public abstract class DataUtilities {
             if (v != null) {
                 total = total + v.doubleValue();
             }
+            else {
+            	throw new InvalidParameterException("no nulls allowed");
+            }
+        }
+        if (total ==0) {
+        	for (int i = 0; i < data.getItemCount(); i++) {
+        		result.addValue(data.getKey(i), new Double(0));
+        	}
+        	return result;
         }
         double runningTotal = 0.0;
         for (int i = 0; i < data.getItemCount(); i++) {
