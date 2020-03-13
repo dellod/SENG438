@@ -525,7 +525,7 @@ nullRange = null;
 	public void constrainValueAtJustBelowLowerBound() {
 		String message = "Passing a range of -10 and 10, should constrain a value of -11 to -10";
 		double actualResult = exampleRange.constrain(-11);
-		double expectedResult = 10;
+		double expectedResult = -10;
 		boolean condition = actualResult == expectedResult;
 		assertTrue(message, condition);
 	}
@@ -629,7 +629,7 @@ nullRange = null;
 		String message = "Passing a Range object with lower = -20 and upper = 20, should not be equal to Range that is -10 to 10.";
 		Range testRange = new Range(-20, 20);
 		boolean condition = exampleRange.equals(testRange);
-		assertTrue(message, condition);
+		assertFalse(message, condition);
 	}
 	
 	/**
@@ -641,7 +641,7 @@ nullRange = null;
 		String message = "Passing a Range object with lower = -10 but upper = 20, should not be equal to Range that is -10 to 10.";
 		Range testRange = new Range(-10, 20);
 		boolean condition = exampleRange.equals(testRange);
-		assertTrue(message, condition);
+		assertFalse(message, condition);
 	}
 	
 	/**
@@ -653,7 +653,7 @@ nullRange = null;
 		String message = "Passing a range object with upper = 10 but lower = -20, should not be equal to Range that is -10 to 10.";
 		Range testRange = new Range(-20, 10);
 		boolean condition = exampleRange.equals(testRange);
-		assertTrue(message, condition);
+		assertFalse(message, condition);
 	}
 	
 	/**
