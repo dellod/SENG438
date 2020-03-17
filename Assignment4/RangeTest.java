@@ -793,7 +793,7 @@ nullRange = null;
 	@Test
 	public void test_getLowerBound() {
 		String message = "Test the lower bound of range -10 to 10 using the getlowerBound method, should return -10";
-		double actualResult = exampleRange.getUpperBound();
+		double actualResult = exampleRange.getLowerBound();
 		double expectedResult = -10;
 		assertEquals(message,expectedResult,actualResult,0.00000001d); 
 		
@@ -837,9 +837,9 @@ nullRange = null;
 	public void test_expandToInclude_passing_value_above_the_upperrange() {
 		String message1 = "Test the upper bound of range -10 to 10 after using the expandToInclude function by passing 15.0 to be included";
 		String message2 = "Test the lower bound of range -10 to 10 after using the expandToInclude function by passing 15.0 to be included";
-		Range.expandToInclude(exampleRange,15.0);
-		double actualLower = exampleRange.getLowerBound();
-		double actualUpper = exampleRange.getUpperBound();
+		Range test = Range.expandToInclude(exampleRange,15.0);
+		double actualLower = test.getLowerBound();
+		double actualUpper = test.getUpperBound();
 		double expectedLower = -10;
 		double expectedUpper = 15;
 		assertEquals(message1,expectedLower,actualLower,0.00000001d); 
@@ -855,9 +855,9 @@ nullRange = null;
 	public void test_expandToInclude_passing_value_below_the_lowerrange() {
 		String message1 = "Test the upper bound of range -10 to 10 after using the expandToInclude function by passing -15.0 to be included";
 		String message2 = "Test the lower bound of range -10 to 10 after using the expandToInclude function by passing -15.0 to be included";
-		Range.expandToInclude(exampleRange,-15.0);
-		double actualLower = exampleRange.getLowerBound();
-		double actualUpper = exampleRange.getUpperBound();
+		Range test = Range.expandToInclude(exampleRange,-15.0);
+		double actualLower = test.getLowerBound();
+		double actualUpper = test.getUpperBound();
 		double expectedLower = -15;
 		double expectedUpper = 10;
 		assertEquals(message1,expectedLower,actualLower,0.00000001d); 
@@ -930,10 +930,10 @@ nullRange = null;
 	public void test_expandToInclude_passing_just_above_upper_value() {
 		String message1 = "Test the upper bound of range -10 to 10 after using the expandToInclude function by passing 10.00000001 to be included";
 		String message2 = "Test the lower bound of range -10 to 10 after using the expandToInclude function by passing 10.00000001 to be included";
-		Range.expandToInclude(exampleRange,10.00000001);
-		double actualLower = exampleRange.getLowerBound();
-		double actualUpper = exampleRange.getUpperBound();
-		double expectedLower = 3.0;
+		Range test = Range.expandToInclude(exampleRange, 10.00000001);
+		double actualLower = test.getLowerBound();
+		double actualUpper = test.getUpperBound();
+		double expectedLower = -10;
 		double expectedUpper = 10.00000001;
 		assertEquals(message1,expectedLower,actualLower,0.00000001d); 
 		assertEquals(message2,expectedUpper,actualUpper,0.00000001d); 
@@ -966,9 +966,9 @@ nullRange = null;
 	public void test_expandToInclude_passing_just_below_lower_value() {
 		String message1 = "Test the upper bound of range -10 to 10 after using the expandToInclude function by passing -10.00000001 to be included";
 		String message2 = "Test the lower bound of range -10 to 10 after using the expandToInclude function by passing -10.00000001 to be included";
-		Range.expandToInclude(exampleRange,-10.00000001);
-		double actualLower = exampleRange.getLowerBound();
-		double actualUpper = exampleRange.getUpperBound();
+		Range test = Range.expandToInclude(exampleRange,-10.00000001);
+		double actualLower = test.getLowerBound();
+		double actualUpper = test.getUpperBound();
 		double expectedLower = -10.00000001;
 		double expectedUpper = 10;
 		assertEquals(message1,expectedLower,actualLower,0.00000001d); 
@@ -981,7 +981,7 @@ nullRange = null;
 	 * Equivalent class test
 	 * 
 	 */
-	@Test
+	@Test(expected = NullPointerException.class)
 	public void test_expandToInclude_passing_null_Range() {
 		String message1 = "Test the upper bound of null Range using the expandToInclude function by passing 5.0 to be included";
 		String message2 = "Test the lower bound of null Range using the expandToInclude function by passing 5.0 to be included";
@@ -1017,9 +1017,9 @@ nullRange = null;
 	public void test_expand_passing_integer_value() {
 		String message1 = "Test the upper bound of range -10 to 10 after using the expand function by passing upperMargin 0.5 to be expand";
 		String message2 = "Test the lower bound of range -10 to 10 after using the expand function by passing lowerMargin 0.25 to be expand";
-		Range.expand(exampleRange,0.25,0.5);
-		double actualLower = exampleRange.getLowerBound();
-		double actualUpper = exampleRange.getUpperBound();
+		Range test = Range.expand(exampleRange,0.25,0.5);
+		double actualLower = test.getLowerBound();
+		double actualUpper = test.getUpperBound();
 		double expectedLower = -15;
 		double expectedUpper = 20;
 		assertEquals(message1,expectedLower,actualLower,0.00000001d); 
@@ -1027,5 +1027,3 @@ nullRange = null;
 		
 	}
 }
-
-
