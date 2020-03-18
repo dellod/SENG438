@@ -49,6 +49,7 @@ nullRange = null;
 	public void testCaseWhereLowerIsGreaterThanUpperInConstructor() {
 		Range r = new Range(10, 0);
 	}
+	
 	/**
 *  Test hashcode to make sure it runs
 */
@@ -328,6 +329,16 @@ nullRange = null;
 		double upper = 5;
 		boolean condition = exampleRange.intersects(lower, upper);
 		assertTrue(message, condition);
+	}
+	
+	@Test
+	public void sameUpperBoundButHigherLowerBound()
+	{
+		String message = "Passing a range of 0 and 10, should not intersect between -10 and 10";
+		double lower = 0;
+		double upper = 10;
+		boolean condition = exampleRange.intersects(lower, upper);
+		assertFalse(message, condition);
 	}
 	
 	/**
@@ -1028,5 +1039,16 @@ nullRange = null;
 		assertEquals(message1,expectedLower,actualLower,0.00000001d); 
 		assertEquals(message2,expectedUpper,actualUpper,0.00000001d);
 		
+	}
+	
+	/**
+	 * Tests the toString()
+	 */
+	
+	@Test
+	public void testToStringIsAccurate() {
+		Range r = new Range(0, 10);
+		System.out.println(r.toString());
+		assertEquals("range should be 0, 10", r.toString(), "Range[0.0,10.0]");
 	}
 }
