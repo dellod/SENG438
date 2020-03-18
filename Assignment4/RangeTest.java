@@ -49,12 +49,42 @@ nullRange = null;
 	public void testCaseWhereLowerIsGreaterThanUpperInConstructor() {
 		Range r = new Range(10, 0);
 	}
+	
+	
+	/**
+	 * Mutation Testing
+	 */
+	@Test
+	public void makingSureRangeUpperStaysTheSameAfterHashCode()
+	{
+		String message = "Range upper bound should be the same after hashCode call";
+		exampleRange.hashCode();
+		double expected = 10;
+		double actual = exampleRange.getUpperBound();
+		assertEquals(message, expected, actual, 0.00000001d);
+	}
+	
+	/**
+	 * Mutation Testing
+	 */
+	@Test
+	public void makingSureRangeLowerStaysTheSameAfterHashCode()
+	{
+		String message = "Range lower bound should be the same after hashCode call";
+		exampleRange.hashCode();
+		double expected = -10;
+		double actual = exampleRange.getLowerBound();
+		assertEquals(message, expected, actual, 0.00000001d);
+	}
 	/**
 *  Test hashcode to make sure it runs
 */
 	@Test
 	public void testHashCode() {
-		exampleRange.hashCode();
+		Range test = new Range(0,1);
+		long actual = (long)test.hashCode();
+		long expected = 1072693248;
+		assertEquals(expected, actual);
 	}
 
 	/**
@@ -309,7 +339,38 @@ nullRange = null;
 		double valueBeingTested = 10;
 		boolean condition = exampleRange.contains(valueBeingTested);
 		assertTrue(message, condition);
+	}	
+	
+	/**
+	 * Mutation Coverage
+	 */
+	@Test
+	public void makingSureRangeStaysTheSameAfterIntersects()
+	{
+		String message = "The range object should not change after calling intersect.";
+		double lower = -15;
+		double upper = -5;
+		boolean condition = exampleRange.intersects(lower, upper);
+		double expected = -10;
+		double actual = exampleRange.getLowerBound();
+		assertEquals(message, expected, actual, 0.00000001d);
 	}
+	
+	/**
+	 * Mutation Coverage
+	 */
+	@Test
+	public void makingSureRangeStaysTheSameAfterIntersects2()
+	{
+		String message = "The range object should not change after calling intersect.";
+		double lower = -5;
+		double upper = 10;
+		boolean condition = exampleRange.intersects(lower, upper);
+		double expected = 10;
+		double actual = exampleRange.getUpperBound();
+		assertEquals(message, expected, actual, 0.00000001d);
+	}
+	
 	
 	
 	/*** Testing "public boolean intersects(double lower, double upper)" Method ***/
@@ -323,6 +384,16 @@ nullRange = null;
 		String message = "Passing a range of -5 and 5, should intersect between -10 and 10";
 		double lower = -5;
 		double upper = 5;
+		boolean condition = exampleRange.intersects(lower, upper);
+		assertTrue(message, condition);
+	}
+	
+	@Test
+	public void sameUpperBoundButHigherLowerBound()
+	{
+		String message = "Passing a range of 0 and 10, should intersect between -10 and 10";
+		double lower = 0;
+		double upper = 10;
 		boolean condition = exampleRange.intersects(lower, upper);
 		assertTrue(message, condition);
 	}
@@ -459,6 +530,33 @@ nullRange = null;
 	}
 	
 	/**
+	 * Mutation Testing
+	 */
+	@Test
+	public void makingSureRangeLowerStaysTheSameAfterConstrain()
+	{
+		String message = "The Range lower bound should be the same after calling constrain.";
+		double value = -20;
+		exampleRange.constrain(value);
+		double expected = -10;
+		double actual = exampleRange.getLowerBound();
+		assertEquals(message, expected, actual, 0.00000001d);
+	}
+	
+	/**
+	 * Mutation Testing
+	 */
+	@Test
+	public void makingSureRangeUpperStaysTheSameAfterConstrain()
+	{
+		String message = "The Range upper bound should be the same after calling constrain.";
+		double value = 20;
+		exampleRange.constrain(value);
+		double expected = 10;
+		double actual = exampleRange.getUpperBound();
+		assertEquals(message, expected, actual, 0.00000001d);
+	}
+	/**
 	 * Equivalence Class Test below lower bound for constrain function
 	 */
 	@Test
@@ -525,7 +623,7 @@ nullRange = null;
 	public void constrainValueAtJustBelowLowerBound() {
 		String message = "Passing a range of -10 and 10, should constrain a value of -11 to -10";
 		double actualResult = exampleRange.constrain(-11);
-		double expectedResult = 10;
+		double expectedResult = -10;
 		boolean condition = actualResult == expectedResult;
 		assertTrue(message, condition);
 	}
@@ -540,6 +638,32 @@ nullRange = null;
 		double expectedResult = -10;
 		boolean condition = actualResult == expectedResult;
 		assertTrue(message, condition);
+	}
+	
+	/**
+	 * Mutation Testing
+	 */
+	@Test
+	public void makingSureRangeLowerStaysTheSameAfterGetCentralValue()
+	{
+		String message = "The Range lower bound should be the same after calling getCentralValue";
+		double expected = -10;
+		exampleRange.getCentralValue();
+		double actual = exampleRange.getLowerBound();
+		assertEquals(message, expected, actual, 0.00000001d);
+	}
+	
+	/**
+	 * Mutation Testing
+	 */
+	@Test
+	public void makingSureRangeUpperStaysTheSameAfterGetCentralValue()
+	{
+		String message = "The Range upper bound should be the same after calling getCentralValue";
+		double expected = 10;
+		exampleRange.getCentralValue();
+		double actual = exampleRange.getUpperBound();
+		assertEquals(message, expected, actual, 0.00000001d);
 	}
 	
 	/**
@@ -609,6 +733,34 @@ nullRange = null;
 	}
 	
 	/**
+	 * Mutation Testing
+	 */
+	@Test
+	public void makingSureRangeLowerStaysTheSameAfterEquals()
+	{
+		String message = "Range lower should be the same after equals call";
+		Range testRange = new Range(-20, 20);
+		exampleRange.equals(testRange);
+		double expected = -10;
+		double actual = exampleRange.getLowerBound();
+		assertEquals(message, expected, actual, 0.00000001d);
+	}
+	
+	/**
+	 * Mutation Testing
+	 */
+	@Test
+	public void makingSureRangeUpperStaysTheSameAfterEquals()
+	{
+		String message = "Range lower should be the same after equals call";
+		Range testRange = new Range(-10, 20);
+		exampleRange.equals(testRange);
+		double expected = 10;
+		double actual = exampleRange.getUpperBound();
+		assertEquals(message, expected, actual, 0.00000001d);
+	}
+	
+	/**
 	 * The test passingDoubleObject, tests passing a Double object in the method equals(Object obj) - Whitebox Testing.
 	 */
 	@Test
@@ -629,7 +781,7 @@ nullRange = null;
 		String message = "Passing a Range object with lower = -20 and upper = 20, should not be equal to Range that is -10 to 10.";
 		Range testRange = new Range(-20, 20);
 		boolean condition = exampleRange.equals(testRange);
-		assertTrue(message, condition);
+		assertFalse(message, condition);
 	}
 	
 	/**
@@ -641,7 +793,7 @@ nullRange = null;
 		String message = "Passing a Range object with lower = -10 but upper = 20, should not be equal to Range that is -10 to 10.";
 		Range testRange = new Range(-10, 20);
 		boolean condition = exampleRange.equals(testRange);
-		assertTrue(message, condition);
+		assertFalse(message, condition);
 	}
 	
 	/**
@@ -653,7 +805,7 @@ nullRange = null;
 		String message = "Passing a range object with upper = 10 but lower = -20, should not be equal to Range that is -10 to 10.";
 		Range testRange = new Range(-20, 10);
 		boolean condition = exampleRange.equals(testRange);
-		assertTrue(message, condition);
+		assertFalse(message, condition);
 	}
 	
 	/**
@@ -793,7 +945,7 @@ nullRange = null;
 	@Test
 	public void test_getLowerBound() {
 		String message = "Test the lower bound of range -10 to 10 using the getlowerBound method, should return -10";
-		double actualResult = exampleRange.getUpperBound();
+		double actualResult = exampleRange.getLowerBound();
 		double expectedResult = -10;
 		assertEquals(message,expectedResult,actualResult,0.00000001d); 
 		
@@ -837,9 +989,9 @@ nullRange = null;
 	public void test_expandToInclude_passing_value_above_the_upperrange() {
 		String message1 = "Test the upper bound of range -10 to 10 after using the expandToInclude function by passing 15.0 to be included";
 		String message2 = "Test the lower bound of range -10 to 10 after using the expandToInclude function by passing 15.0 to be included";
-		Range.expandToInclude(exampleRange,15.0);
-		double actualLower = exampleRange.getLowerBound();
-		double actualUpper = exampleRange.getUpperBound();
+		Range test = Range.expandToInclude(exampleRange,15.0);
+		double actualLower = test.getLowerBound();
+		double actualUpper = test.getUpperBound();
 		double expectedLower = -10;
 		double expectedUpper = 15;
 		assertEquals(message1,expectedLower,actualLower,0.00000001d); 
@@ -855,9 +1007,9 @@ nullRange = null;
 	public void test_expandToInclude_passing_value_below_the_lowerrange() {
 		String message1 = "Test the upper bound of range -10 to 10 after using the expandToInclude function by passing -15.0 to be included";
 		String message2 = "Test the lower bound of range -10 to 10 after using the expandToInclude function by passing -15.0 to be included";
-		Range.expandToInclude(exampleRange,-15.0);
-		double actualLower = exampleRange.getLowerBound();
-		double actualUpper = exampleRange.getUpperBound();
+		Range test = Range.expandToInclude(exampleRange,-15.0);
+		double actualLower = test.getLowerBound();
+		double actualUpper = test.getUpperBound();
 		double expectedLower = -15;
 		double expectedUpper = 10;
 		assertEquals(message1,expectedLower,actualLower,0.00000001d); 
@@ -930,10 +1082,10 @@ nullRange = null;
 	public void test_expandToInclude_passing_just_above_upper_value() {
 		String message1 = "Test the upper bound of range -10 to 10 after using the expandToInclude function by passing 10.00000001 to be included";
 		String message2 = "Test the lower bound of range -10 to 10 after using the expandToInclude function by passing 10.00000001 to be included";
-		Range.expandToInclude(exampleRange,10.00000001);
-		double actualLower = exampleRange.getLowerBound();
-		double actualUpper = exampleRange.getUpperBound();
-		double expectedLower = 3.0;
+		Range test = Range.expandToInclude(exampleRange, 10.00000001);
+		double actualLower = test.getLowerBound();
+		double actualUpper = test.getUpperBound();
+		double expectedLower = -10;
 		double expectedUpper = 10.00000001;
 		assertEquals(message1,expectedLower,actualLower,0.00000001d); 
 		assertEquals(message2,expectedUpper,actualUpper,0.00000001d); 
@@ -966,9 +1118,9 @@ nullRange = null;
 	public void test_expandToInclude_passing_just_below_lower_value() {
 		String message1 = "Test the upper bound of range -10 to 10 after using the expandToInclude function by passing -10.00000001 to be included";
 		String message2 = "Test the lower bound of range -10 to 10 after using the expandToInclude function by passing -10.00000001 to be included";
-		Range.expandToInclude(exampleRange,-10.00000001);
-		double actualLower = exampleRange.getLowerBound();
-		double actualUpper = exampleRange.getUpperBound();
+		Range test = Range.expandToInclude(exampleRange,-10.00000001);
+		double actualLower = test.getLowerBound();
+		double actualUpper = test.getUpperBound();
 		double expectedLower = -10.00000001;
 		double expectedUpper = 10;
 		assertEquals(message1,expectedLower,actualLower,0.00000001d); 
@@ -981,7 +1133,7 @@ nullRange = null;
 	 * Equivalent class test
 	 * 
 	 */
-	@Test
+	@Test(expected = NullPointerException.class)
 	public void test_expandToInclude_passing_null_Range() {
 		String message1 = "Test the upper bound of null Range using the expandToInclude function by passing 5.0 to be included";
 		String message2 = "Test the lower bound of null Range using the expandToInclude function by passing 5.0 to be included";
@@ -1017,15 +1169,24 @@ nullRange = null;
 	public void test_expand_passing_integer_value() {
 		String message1 = "Test the upper bound of range -10 to 10 after using the expand function by passing upperMargin 0.5 to be expand";
 		String message2 = "Test the lower bound of range -10 to 10 after using the expand function by passing lowerMargin 0.25 to be expand";
-		Range.expand(exampleRange,0.25,0.5);
-		double actualLower = exampleRange.getLowerBound();
-		double actualUpper = exampleRange.getUpperBound();
+		Range test = Range.expand(exampleRange,0.25,0.5);
+		double actualLower = test.getLowerBound();
+		double actualUpper = test.getUpperBound();
 		double expectedLower = -15;
 		double expectedUpper = 20;
 		assertEquals(message1,expectedLower,actualLower,0.00000001d); 
 		assertEquals(message2,expectedUpper,actualUpper,0.00000001d);
 		
 	}
+	
+	/**
+	 * Tests the toString()
+	 */
+	
+	@Test
+	public void testToStringIsAccurate() {
+		Range r = new Range(0, 10);
+		System.out.println(r.toString());
+		assertEquals("range should be 0, 10", r.toString(), "Range[0.0,10.0]");
+	}
 }
-
-
