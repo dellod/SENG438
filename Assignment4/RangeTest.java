@@ -54,7 +54,10 @@ nullRange = null;
 */
 	@Test
 	public void testHashCode() {
-		exampleRange.hashCode();
+		Range test = new Range(0,1);
+		long actual = (long)test.hashCode();
+		long expected = 1072693248;
+		assertEquals(expected, actual);
 	}
 
 	/**
