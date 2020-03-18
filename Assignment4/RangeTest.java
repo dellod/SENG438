@@ -1064,9 +1064,10 @@ nullRange = null;
 	public void test_expandToInclude_passing_upper_value() {
 		String message1 = "Test the upper bound of range -10 to 10 after using the expandToInclude function by passing 10.0 to be included";
 		String message2 = "Test the lower bound of range -10 to 10 after using the expandToInclude function by passing 10.0 to be included";
-		Range.expandToInclude(exampleRange,10.0);
-		double actualLower = exampleRange.getLowerBound();
-		double actualUpper = exampleRange.getUpperBound();
+		Range test = Range.expandToInclude(exampleRange,10.0);
+		assertNotNull(test);
+		double actualLower = test.getLowerBound();
+		double actualUpper = test.getUpperBound();
 		double expectedLower = -10;
 		double expectedUpper = 10;
 		assertEquals(message1,expectedLower,actualLower,0.00000001d); 
@@ -1133,13 +1134,14 @@ nullRange = null;
 	 * Equivalent class test
 	 * 
 	 */
-	@Test(expected = NullPointerException.class)
+	@Test
 	public void test_expandToInclude_passing_null_Range() {
 		String message1 = "Test the upper bound of null Range using the expandToInclude function by passing 5.0 to be included";
 		String message2 = "Test the lower bound of null Range using the expandToInclude function by passing 5.0 to be included";
-		Range.expandToInclude(nullRange,5.0);
-		double actualLower = nullRange.getLowerBound();
-		double actualUpper = nullRange.getUpperBound();
+		Range test = Range.expandToInclude(nullRange,5.0);
+		assertNotNull(test);
+		double actualLower = test.getLowerBound();
+		double actualUpper = test.getUpperBound();
 		double expectedLower = 5.0;
 		double expectedUpper = 5.0;
 		assertEquals(message1,expectedLower,actualLower,0.00000001d); 
