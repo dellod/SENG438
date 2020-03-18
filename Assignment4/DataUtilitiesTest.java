@@ -295,14 +295,33 @@ public class DataUtilitiesTest {
 }
 
 	/**
-	 * calculate column total for a Values2D object with negative int values - Mutation testing - NO EFFECT
+	 * calculate column total for a Values2D object for column one - Mutation testing
 	 */
 	@Test
-	public void calculateColumnTotalForTwoValuesForZeroethColumnWithNegativeIntPrimitive() {
-		double actualResult = DataUtilities.calculateColumnTotal(intNegValue2x2, 0);
-		double expectedResult = -4.0;
-		String message = "sum of zeroth column of a negative int 2x2 Values2D .";
+	public void calculateRowTotalForTwoValuesForOnethColumnWithNegativeIntPrimitive() {
+		double actualResult = DataUtilities.calculateRowTotal(intNegValue2x2, 1);
+		double expectedResult = -7.0;
+		String message = "sum of oneth row of a negative int 2x2 Values2D .";
 		assertEquals(message, expectedResult, actualResult, .000000001d);
+	}
+	
+	/**
+	 * calculate row total for a Values2D object for column one - Mutation testing 
+	 */
+	@Test
+	public void calculateColumnTotalForTwoValuesForOnethColumnWithNegativeIntPrimitive() {
+		double actualResult = DataUtilities.calculateColumnTotal(intNegValue2x2, 1);
+		double expectedResult = -6.0;
+		String message = "sum of oneth column of a negative int 2x2 Values2D .";
+		assertEquals(message, expectedResult, actualResult, .000000001d);
+	}
+	
+	/**
+	 * calculate column total for a null object, should throw an InvalidParameterException - Mutation Testing
+	 */
+	@Test(expected = InvalidParameterException.class)
+	public void calculateColumnTotalForNull() {
+		DataUtilities.calculateColumnTotal(null,0);
 	}
 	
 	/**
@@ -460,15 +479,43 @@ public class DataUtilitiesTest {
 	
 	/**
 	 * cumulative percentage for KeyedValues with 3 zero doubles - Boundary Value Testing
-	 * should return an InvalidParameterException - since those inputs would lead to a divide by zero
-	 *  but returns no exception
+	 * should return zero since all values are zero
+	 * added for mutation testing
 	 */
 	@Test
-	public void getCumulativePercentagesUsing3ZeroDoubleValues() {
+	public void getCumulativePercentagesUsing3ZeroDoubleValuesFirst() {
+		KeyedValues actual = DataUtilities.getCumulativePercentages(zeroValues3);	
+		String message = "first cumulative percentage of a KeyedValues of size 3 with zero values.";
+		Double expected = new Double(0);
+		assertEquals(message, expected.doubleValue(), actual.getValue(0).doubleValue(), 0.000001d);
+	
+	}	
+	
+	/**
+	 * cumulative percentage for KeyedValues with 3 zero doubles - Boundary Value Testing
+	 * should return zero since all values are zero
+	 * added for mutation testing
+	 */
+	@Test
+	public void getCumulativePercentagesUsing3ZeroDoubleValuesSecond() {
+		KeyedValues actual = DataUtilities.getCumulativePercentages(zeroValues3);	
+		String message = "second cumulative percentage of a KeyedValues of size 3 with zero values.";
+		Double expected = new Double(0);
+		assertEquals(message, expected.doubleValue(), actual.getValue(1).doubleValue(), 0.000001d);
+	
+	}	
+	
+	/**
+	 * cumulative percentage for KeyedValues with 3 zero doubles - Boundary Value Testing
+	 * should return zero since all values are zero
+	 * added for mutation testing
+	 */
+	@Test
+	public void getCumulativePercentagesUsing3ZeroDoubleValuesThird() {
 		KeyedValues actual = DataUtilities.getCumulativePercentages(zeroValues3);	
 		String message = "third cumulative percentage of a KeyedValues of size 3 with zero values.";
 		Double expected = new Double(0);
-		assertEquals(message, expected.doubleValue(), actual.getValue(1).doubleValue(), 0.000001d);
+		assertEquals(message, expected.doubleValue(), actual.getValue(2).doubleValue(), 0.000001d);
 	
 	}	
 	
