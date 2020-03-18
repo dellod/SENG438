@@ -50,6 +50,32 @@ nullRange = null;
 		Range r = new Range(10, 0);
 	}
 	
+	
+	/**
+	 * Mutation Testing
+	 */
+	@Test
+	public void makingSureRangeUpperStaysTheSameAfterHashCode()
+	{
+		String message = "Range upper bound should be the same after hashCode call";
+		exampleRange.hashCode();
+		double expected = 10;
+		double actual = exampleRange.getUpperBound();
+		assertEquals(message, expected, actual, 0.00000001d);
+	}
+	
+	/**
+	 * Mutation Testing
+	 */
+	@Test
+	public void makingSureRangeLowerStaysTheSameAfterHashCode()
+	{
+		String message = "Range lower bound should be the same after hashCode call";
+		exampleRange.hashCode();
+		double expected = -10;
+		double actual = exampleRange.getLowerBound();
+		assertEquals(message, expected, actual, 0.00000001d);
+	}
 	/**
 *  Test hashcode to make sure it runs
 */
@@ -313,7 +339,38 @@ nullRange = null;
 		double valueBeingTested = 10;
 		boolean condition = exampleRange.contains(valueBeingTested);
 		assertTrue(message, condition);
+	}	
+	
+	/**
+	 * Mutation Coverage
+	 */
+	@Test
+	public void makingSureRangeStaysTheSameAfterIntersects()
+	{
+		String message = "The range object should not change after calling intersect.";
+		double lower = -15;
+		double upper = -5;
+		boolean condition = exampleRange.intersects(lower, upper);
+		double expected = -10;
+		double actual = exampleRange.getLowerBound();
+		assertEquals(message, expected, actual, 0.00000001d);
 	}
+	
+	/**
+	 * Mutation Coverage
+	 */
+	@Test
+	public void makingSureRangeStaysTheSameAfterIntersects2()
+	{
+		String message = "The range object should not change after calling intersect.";
+		double lower = -5;
+		double upper = 10;
+		boolean condition = exampleRange.intersects(lower, upper);
+		double expected = 10;
+		double actual = exampleRange.getUpperBound();
+		assertEquals(message, expected, actual, 0.00000001d);
+	}
+	
 	
 	
 	/*** Testing "public boolean intersects(double lower, double upper)" Method ***/
@@ -334,11 +391,11 @@ nullRange = null;
 	@Test
 	public void sameUpperBoundButHigherLowerBound()
 	{
-		String message = "Passing a range of 0 and 10, should not intersect between -10 and 10";
+		String message = "Passing a range of 0 and 10, should intersect between -10 and 10";
 		double lower = 0;
 		double upper = 10;
 		boolean condition = exampleRange.intersects(lower, upper);
-		assertFalse(message, condition);
+		assertTrue(message, condition);
 	}
 	
 	/**
@@ -473,6 +530,33 @@ nullRange = null;
 	}
 	
 	/**
+	 * Mutation Testing
+	 */
+	@Test
+	public void makingSureRangeLowerStaysTheSameAfterConstrain()
+	{
+		String message = "The Range lower bound should be the same after calling constrain.";
+		double value = -20;
+		exampleRange.constrain(value);
+		double expected = -10;
+		double actual = exampleRange.getLowerBound();
+		assertEquals(message, expected, actual, 0.00000001d);
+	}
+	
+	/**
+	 * Mutation Testing
+	 */
+	@Test
+	public void makingSureRangeUpperStaysTheSameAfterConstrain()
+	{
+		String message = "The Range upper bound should be the same after calling constrain.";
+		double value = 20;
+		exampleRange.constrain(value);
+		double expected = 10;
+		double actual = exampleRange.getUpperBound();
+		assertEquals(message, expected, actual, 0.00000001d);
+	}
+	/**
 	 * Equivalence Class Test below lower bound for constrain function
 	 */
 	@Test
@@ -557,6 +641,32 @@ nullRange = null;
 	}
 	
 	/**
+	 * Mutation Testing
+	 */
+	@Test
+	public void makingSureRangeLowerStaysTheSameAfterGetCentralValue()
+	{
+		String message = "The Range lower bound should be the same after calling getCentralValue";
+		double expected = -10;
+		exampleRange.getCentralValue();
+		double actual = exampleRange.getLowerBound();
+		assertEquals(message, expected, actual, 0.00000001d);
+	}
+	
+	/**
+	 * Mutation Testing
+	 */
+	@Test
+	public void makingSureRangeUpperStaysTheSameAfterGetCentralValue()
+	{
+		String message = "The Range upper bound should be the same after calling getCentralValue";
+		double expected = 10;
+		exampleRange.getCentralValue();
+		double actual = exampleRange.getUpperBound();
+		assertEquals(message, expected, actual, 0.00000001d);
+	}
+	
+	/**
 	 * Equivalence Class Test at negative range for getCentralValue function
 	 */
 	@Test
@@ -620,6 +730,34 @@ nullRange = null;
 		double expectedResult = 10;
 		assertEquals(message,expectedResult,actualResult,0.00000001d); 
 		
+	}
+	
+	/**
+	 * Mutation Testing
+	 */
+	@Test
+	public void makingSureRangeLowerStaysTheSameAfterEquals()
+	{
+		String message = "Range lower should be the same after equals call";
+		Range testRange = new Range(-20, 20);
+		exampleRange.equals(testRange);
+		double expected = -10;
+		double actual = exampleRange.getLowerBound();
+		assertEquals(message, expected, actual, 0.00000001d);
+	}
+	
+	/**
+	 * Mutation Testing
+	 */
+	@Test
+	public void makingSureRangeUpperStaysTheSameAfterEquals()
+	{
+		String message = "Range lower should be the same after equals call";
+		Range testRange = new Range(-10, 20);
+		exampleRange.equals(testRange);
+		double expected = 10;
+		double actual = exampleRange.getUpperBound();
+		assertEquals(message, expected, actual, 0.00000001d);
 	}
 	
 	/**
